@@ -3,19 +3,29 @@ import { Beauty } from "./Beauty.component";
 import "@testing-library/jest-dom";
 import { BeautyResponse } from "@/types";
 
-jest.mock("@/components/atom", () => ({
-  LinkComponent: ({
-    href,
-    children,
-  }: {
-    href: string;
-    children: React.ReactNode;
-  }) => (
-    <a href={href} data-testid="link-component">
-      {children}
-    </a>
-  ),
-}));
+// jest.mock("@/components/atom", () => ({
+//   LinkComponent: ({
+//     href,
+//     children,
+//   }: {
+//     href: string;
+//     children: React.ReactNode;
+//   }) => (
+//     <a href={href} data-testid="link-component">
+//       {children}
+//     </a>
+//   ),
+// }));
+
+jest.mock("next/link", () => {
+  return ({ href, children }: { href: string; children: React.ReactNode }) => {
+    return (
+      <a href={href} data-testid="next-link">
+        {children}
+      </a>
+    );
+  };
+});
 
 const mockData: BeautyResponse[] = [
   {

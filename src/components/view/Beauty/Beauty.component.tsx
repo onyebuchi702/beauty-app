@@ -1,15 +1,14 @@
-import { LinkComponent } from "@/components/atom";
 import { BeautyResponse } from "@/types";
-import React from "react";
+import Link from "next/link";
 
 export const Beauty = ({ data }: { data: BeautyResponse[] }) => {
   return (
     <div className="flex flex-col gap-4">
       {data.map((item) => (
-        <LinkComponent href={item.slug} key={item.slug}>
+        <Link href={item.slug} key={item.slug}>
           <h2>{item.name}</h2>
           <p>{item.url}</p>
-        </LinkComponent>
+        </Link>
       ))}
 
       {data && data.length === 0 && (
