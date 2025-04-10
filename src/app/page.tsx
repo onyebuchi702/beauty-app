@@ -1,21 +1,22 @@
 "use client";
 
-import { Beauty } from "@/components/view";
+import { Error, Loading, NoData } from "@/components/atoms";
+import { Beauty } from "@/components/views";
 import { useBeauty } from "@/lib/hooks";
 
 export default function Home() {
   const { query } = useBeauty();
 
   if (query.isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (query.isError) {
-    return <div>Error: {query.error.message}</div>;
+    return <Error message={query.error.message} />;
   }
 
   if (!query.data) {
-    return <div>No data found</div>;
+    return <NoData />;
   }
 
   return <Beauty data={query?.data} />;
