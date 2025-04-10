@@ -1,6 +1,6 @@
 "use client";
 
-import { Beauty } from "@/components/view/Beauty";
+import { Beauty } from "@/components/view";
 import { useBeauty } from "@/lib/hooks";
 
 export default function Home() {

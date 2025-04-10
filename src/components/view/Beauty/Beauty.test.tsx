@@ -15,16 +15,21 @@ jest.mock("next/link", () => {
   };
 });
 
+const mockUrls = {
+  productOne: "https://example.com/test-product",
+  productTwo: "https://example.com/test-product-2",
+};
+
 const mockData: BeautyResponse[] = [
   {
     name: "Test Product",
     slug: "test-product",
-    url: "https://example.com/test-product",
+    url: mockUrls.productOne,
   },
   {
     name: "Test Product2",
     slug: "test-product-2",
-    url: "https://example.com/test-product-2",
+    url: mockUrls.productTwo,
   },
 ];
 
@@ -40,12 +45,8 @@ describe("Beauty Component", () => {
     expect(screen.getByText("Test Product")).toBeInTheDocument();
     expect(screen.getByText("Test Product2")).toBeInTheDocument();
 
-    expect(
-      screen.getByText("https://example.com/test-product")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText("https://example.com/test-product-2")
-    ).toBeInTheDocument();
+    expect(screen.getByText(mockUrls.productOne)).toBeInTheDocument();
+    expect(screen.getByText(mockUrls.productTwo)).toBeInTheDocument();
 
     const links = screen.getAllByTestId("link-component");
 
