@@ -1,0 +1,1 @@
+export { useBeauty } from "./useBeauty";
