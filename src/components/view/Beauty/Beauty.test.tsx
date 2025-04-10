@@ -2,27 +2,15 @@ import { render, screen } from "@testing-library/react";
 import { Beauty } from "./Beauty.component";
 import "@testing-library/jest-dom";
 import { BeautyResponse } from "@/types";
-
-// jest.mock("@/components/atom", () => ({
-//   LinkComponent: ({
-//     href,
-//     children,
-//   }: {
-//     href: string;
-//     children: React.ReactNode;
-//   }) => (
-//     <a href={href} data-testid="link-component">
-//       {children}
-//     </a>
-//   ),
-// }));
+import * as React from "react";
 
 jest.mock("next/link", () => {
+  const React = require("react");
   return ({ href, children }: { href: string; children: React.ReactNode }) => {
-    return (
-      <a href={href} data-testid="next-link">
-        {children}
-      </a>
+    return React.createElement(
+      "a",
+      { href: href, "data-testid": "link-component" },
+      children
     );
   };
 });
@@ -49,11 +37,9 @@ describe("Beauty Component", () => {
   it("renders all products correctly", () => {
     render(<Beauty data={mockData} />);
 
-    // Check if products are rendered
     expect(screen.getByText("Test Product")).toBeInTheDocument();
     expect(screen.getByText("Test Product2")).toBeInTheDocument();
 
-    // Check if URLs are rendered
     expect(
       screen.getByText("https://example.com/test-product")
     ).toBeInTheDocument();
@@ -61,11 +47,9 @@ describe("Beauty Component", () => {
       screen.getByText("https://example.com/test-product-2")
     ).toBeInTheDocument();
 
-    // Check if we have the correct number of links
     const links = screen.getAllByTestId("link-component");
-    expect(links).toHaveLength(2);
 
-    // Check if links have correct hrefs
+    expect(links).toHaveLength(2);
     expect(links[0]).toHaveAttribute("href", "test-product");
     expect(links[1]).toHaveAttribute("href", "test-product-2");
   });
@@ -76,7 +60,6 @@ describe("Beauty Component", () => {
     expect(screen.getByText("No data found")).toBeInTheDocument();
     expect(screen.getByText("Please check back later.")).toBeInTheDocument();
 
-    // Ensure no links are rendered
     const links = screen.queryAllByTestId("link-component");
     expect(links).toHaveLength(0);
   });

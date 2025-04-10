@@ -5,7 +5,11 @@ export const Beauty = ({ data }: { data: BeautyResponse[] }) => {
   return (
     <div className="flex flex-col gap-4">
       {data.map((item) => (
-        <Link href={item.slug} key={item.slug}>
+        <Link
+          href={item.slug}
+          key={item.slug}
+          data-testid={`link-component-${item.slug}`}
+        >
           <h2>{item.name}</h2>
           <p>{item.url}</p>
         </Link>
